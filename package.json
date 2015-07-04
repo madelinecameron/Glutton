@@ -1,0 +1,23 @@
+{
+  "name": "PizzaPI",
+  "version": "0.0.1",
+  "description": "API for ordering pizza from Dominos or Pizza Hut",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "pizza"
+  ],
+  "author": "Madeline Cameron <madeline@madelinecameron.net> (http://madelinecameron.net)",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "lodash": "^3.10.0",
+    "promise": "^7.0.3",
+    "request": "^2.58.0"
+  }
+}

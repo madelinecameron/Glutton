@@ -1,0 +1,33 @@
+{
+  "Dominos" : {
+    "Actions" : {
+      "Menu": "",
+      "Hours": "",
+      "Order": "",
+      "Validate": "",
+      "Place": "",
+      "Stores": ""
+    },
+    "Objects" : {
+      "Generalized Name" : "Dominos Name"
+    }
+  },
+  "PizzaHut" : {
+    "Actions" : {
+      "Menu": "",
+      "Hours": "",
+      "Order": "",
+      "Validate": "",
+      "Place": "",
+      "Stores": ""
+    },
+    "Objects" : {
+      "Generalized Name" : "Pizza Hut Name"
+    }
+  },
+  "PizzaPI" : {
+    "Objects" : {
+      "Generalized Name" : "PizzaPI Name"
+    }
+  }
+}
