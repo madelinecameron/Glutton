@@ -1,12 +1,12 @@
 {
   "Dominos" : {
     "Actions" : {
-      "Menu": "",
+      "Menu": "https://order.dominos.com/power/store/${storeID}/menu?lang=%LANG%&structured=true",
       "Hours": "",
-      "Order": "",
-      "Validate": "",
-      "Place": "",
-      "Stores": ""
+      "Price": "https://order.dominos.com/power/price-order",
+      "Validate": "https://order.dominos.com/power/validate-order",
+      "Place": "https://order.dominos.com/power/place-order",
+      "Stores": "https://order.dominos.com/power/store-locator?s=%LINE_1%&c=%LINE_2%&type=%TYPE%"
     },
     "Objects" : {
       "Generalized Name" : "Dominos Name"
@@ -16,18 +16,19 @@
     "Actions" : {
       "Menu": "",
       "Hours": "",
-      "Order": "",
-      "Validate": "",
+      "Price": "https://order.pizzahut.com/api.php/site/api_ajax/pizzabuilder/getPizzaPrice",
+      "Validate": "https://order.pizzahut.com/site/ajax/tile/submitTile",
       "Place": "",
-      "Stores": ""
+      "Stores": "https://order.pizzahut.com/site/ajax/find_nearby",
+      "BuildPizza": "https://order.pizzahut.com/site/ajax/pizzabuilder/submitPizza"
     },
     "Objects" : {
-      "Generalized Name" : "Pizza Hut Name"
-    }
-  },
-  "PizzaPI" : {
-    "Objects" : {
-      "Generalized Name" : "PizzaPI Name"
+      "Generalized Name" : "Pizza Hut Name",
+      "FindStore" : {
+        "Address_Line_1": "address",
+        "Address_Line_2": "address_two",
+        "Zip": "zip"
+      }
     }
   }
 }

@@ -1,0 +1,21 @@
+Crust:
+  "H": Hand tossed, Type: "L"
+  "T": Thin, Type "LT"
+  "P": Pan, Type: "P"
+  "S": Stuffed, Type: "STF"
+
+Sauce:
+  topps[XS][0]: 1 Extra Sauce
+  topps[XS][1]: 1
+  topps[EZ][0]: 1 Light Sauce
+  topps[EZ][1]: 1
+
+Cheese:
+  topps[XC][0]: 1 Extra Cheese
+  topps[XC][1]: 1
+  topps[ZC][0]: 1 Light Cheese
+  topps[ZC][1]: 1
+
+Toppings:
+  "P": Pepperoni
+  "IS": "Sausage"

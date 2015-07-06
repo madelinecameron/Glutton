@@ -6,4 +6,7 @@ var Item = function(parameters) {
   this.Size = parameters.Size;
 }
 
+Item.prototype.getFriendlyName = function() {
+  
+}
 module.exports = Item;

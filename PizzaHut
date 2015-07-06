@@ -1,0 +1,54 @@
+Find Nearby:
+  Request: occasion:D
+          zip:65401
+          address:1985D Forum Drive
+          address_two:
+  Response: {"success":true,"matches_count":1,"matches":[{"storeNumber":"014626","zip":"65401","state":"MO","city":"ROLLA","address":"1985D FORUM DR","zone":"I-04","dtaIndex":null,"address_two":""}],"store_info":{"014626":{"address":"1024 KINGSHIGHWAY","city":"ROLLA","state":"MO","state_name":"Missouri","zip":65401,"phone":"(573) 364-7213","status":"DC","carryout_open":"11:00AM","carryout_close":"11:00PM","carryout_future_order":false,"delivery_open":"11:00AM","delivery_close":"11:00PM","delivery_future_order":false,"closure_reason":"","onlineStatus":"online","firstTimeDiscount":false,"currentlyOpen":true,"deliveryAvailable":true,"carryoutAvailable":true,"acceptFutureOrders":false,"landmark":null,"futuredelivery":true,"futurecarryout":true,"pizzaEvoTestStore":true,"offlineStatusMsg":null,"promiseTime":35}},"user_location":{"city":"St. Louis","state":"MO","state_name":"Missouri"},"dimensions":{"dma":"866","storeid":"027400","postype":"SUS","storecitystate":"Fresno CA","occasion":"D","exp":"ec43115b8f6faa297ddfa519bb0c8837","usertype":"Guest","requesttime":"21:33:12"}}
+
+Submit Tile:
+  Request: cannot_configure=&tile_id=10072&class=P&subclass=pizza&crust=P&size=L&combos=S&qty=1&qty=1&unavailable_toppings=
+  Response: {"success":true,"error_response":[],"response":{"sub_qty":"1","item_id":0,"description":{"name":"Supreme","descriptions":[{"text":"Large Pan Pizza"},{"text":"Classic Marinara Sauce, Pepperoni, Pork, Beef, Mushrooms, Green Peppers, Red Onions"}],"qty":"1","img":"Classic_Supreme_Pizza.png","price":"$16.00"},"tax":"$1.60","subtotal":"$16.00","surcharge":"$3.50","total":"$21.10","quantity":1,"discount":"","tile_img":"Classic_Supreme_Pizza.png","upsell":0,"nextUpsellItem":[],"product_for_GA":false,"price":"$16.00","analytics":{"price":"16.00","category":"Pizza","variant":"Supreme Large Pan Pizza Classic Marinara Sauce, Pepperoni, Pork, Beef, Mushrooms, Green Peppers, Red Onions","id":"P~~S~~","qty":"1","name":"Supreme"}}}
+
+Submit Tile:
+  Request:product:DRGNAB
+          qty:1
+          tile_id:10330
+          upsell:1
+          upsell_set_idx:0
+          upsellItemCode:{item_code}
+          upsellCategory:spotlight
+          itemSize:RG
+  Response: {"success":true,"error_response":[],"response":{"sub_qty":"1","ga_class":"D","item_id":1,"description":{"name":"HERSHEY&#146;S&#174; Triple Chocolate Brownie","qty":"1","img":"Brownie_Tile_175x203.png","price":"$5.99","itemSize":"RG"},"tax":"$2.10","subtotal":"$21.99","surcharge":"$3.50","total":"$27.59","quantity":2,"discount":"","tile_img":"Brownie_Tile_175x203.png","upsell":1,"nextUpsellItem":[],"product_for_GA":"DRGNAB","price":"$5.99","analytics":{"price":"5.99","category":"Desserts","variant":"HERSHEY&#146;S&#174; Triple Chocolate Brownie","id":"D~~B~~","qty":"1","name":"HERSHEY&apos;S\u00ae Triple Chocolate Brownie"}}}
+
+getPizzaPrice:
+  Request:
+        combos[0]: "B"
+        combos[1]: "B"
+        crust: "P"
+        is_pasta: false
+        qty: 1
+        size: "L"
+        topps[PS][0]: 1
+        topps[PS][1]: 1
+        type: "LD"
+
+  Response: {"price":"$12.50","extraCheesePrice":"1.50"}
+
+getPizzaPrice (Added pepperoni):
+  Request: {"crust":"P","size":"L","qty":1,"type":"LD","combos[0]":"B","combos[1]":"B","topps[PS][0]":1,"topps[PS][1]":1,"topps[P][0]":1,"topps[P][1]":1,"is_pasta":false}
+
+submitPizza:
+  Request:crust:P
+          size:L
+          qty:1
+          type:LD
+          combos[0]:B
+          combos[1]:B
+          topps[PS][0]:1
+          topps[PS][1]:1
+          topps[P][0]:1
+          topps[P][1]:1
+          is_pasta:false
+          special_instructions:dfggf
+
+  Response: {"sub_qty":"1","total":"$41.11","subtotal":"$34.49","quantity":3,"tax":"$3.12","ga_price":12.5,"ga_avg_price":12.5,"pizza_key":"P~L~B~~P","details":{"price":"$12.50","qty":"1","img":"pizzaBuilder.png","name":"Create Your Own Pizza","desc":[{"text":"Large Pan Pizza"},{"text":"Classic Marinara Sauce, Pepperoni"}],"variant":" Large Pan Pizza Classic Marinara Sauce, Pepperoni","item_id":2},"success":true}

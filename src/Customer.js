@@ -12,4 +12,4 @@ Customer.prototype.getFullName = function() {
   return this.FirstName + " " + this.LastName;
 }
 
-module.exports = Address;
+module.exports = Customer;
