@@ -9,7 +9,27 @@
       "Stores": "https://order.dominos.com/power/store-locator?s=%LINE_1%&c=%LINE_2%&type=%TYPE%"
     },
     "Objects" : {
-      "Generalized Name" : "Dominos Name"
+      "Address": {
+        "FindStore": {
+
+        },
+        "Order": {
+
+        }
+
+      },
+      "Item": {
+
+      },
+      "Order": {
+
+      },
+      "Customer": {
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "phone": ""
+      }
     }
   },
   "PizzaHut" : {

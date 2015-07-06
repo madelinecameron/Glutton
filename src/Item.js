@@ -7,6 +7,6 @@ var Item = function(parameters) {
 }
 
 Item.prototype.getFriendlyName = function() {
-  
+
 }
 module.exports = Item;

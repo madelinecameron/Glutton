@@ -86,10 +86,10 @@ describe('Address', function() {
       };
 
       try {
-        var newAddress = new Address(addressParams);
+        expect(new Address(addressParams)).to.throw(Error);
       }
       catch(e) {
-        except(e).to.exist;
+        expect(e).to.exist;
       }
 
       done();
@@ -173,7 +173,7 @@ describe('Address', function() {
         var newAddress = new Address(addressArray);
       }
       catch(e) {
-        except(e).to.exist;
+        expect(e).to.exist;
       }
 
       done();

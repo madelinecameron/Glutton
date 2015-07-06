@@ -3,10 +3,19 @@
 var request = require('request');
 var promise = require('promise');
 var config = require('./config.json');
+var translators = require('./translators');
 
-module.exports.translateObject = function(data, provider) {
-  if(provider !== 'Dominos' || provider !== 'PizzaHut' || provider !== 'PizzaPI') {
+module.exports.translateObject = function(data, type, provider) {
+  if(provider !== 'Dominos' && provider !== 'PizzaHut' && provider !== 'PizzaPI') {
     return errorMessage(false, 'Invalid provider parameter!');
+  }
+
+  switch(type.toUpperCase()) {
+    case "CUSTOMER":
+      return translators.translateCustomer(data)
+    case "ADDRESS":
+      return translators.translateAddress(data);
+
   }
 }
 
@@ -14,6 +23,10 @@ module.exports.translateObject = function(data, provider) {
  //Pizza Hut: Zip (Town + State or ZIP), address: line 1, address_two: line 2
 var findStores = function(Address, provider, callback) {  //Finds stores
   return post(Address, provider, 'Stores').nodeify(callback);
+}
+
+module.exports.cleanInput = function(data) {
+  return data.replace(/(\\|,|\{|\}|;|\(|\))*/g, '');
 }
 
 module.exports.get = function(provider, action) {

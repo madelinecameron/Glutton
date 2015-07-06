@@ -2,8 +2,10 @@
 
 var assert = require('chai').expect;
 var utilities = require('../src/Utilities');
+var Address = require('../src/Address');
+var Customer = require('../src/Customer');
 
-describe.skip('Utilities', function() {
+describe('Utilities', function() {
   describe('Find Stores', function() {
 
   })
@@ -32,61 +34,78 @@ describe.skip('Utilities', function() {
   });
   describe('Object translate', function() {
     describe('Customer', function() {
-      it.skip('should translate object from PizzaPI to Dominos', function(done) {
+      it('should translate from PizzaPI to Dominos', function(done) {
+        var newAddress = new Address({
+          Street: '900 N Bishop Ave',
+          City: 'Rolla',
+          State: 'MO',
+          Zip: '65401'
+        });
+
+        var newCustomer = new Customer({
+          FirstName: 'Madeline',
+          LastName: 'Cameron',
+          Email: 'madeline@madelinecameron.net',
+          Phone: '911-911-9111',
+          Address: newAddress
+        });
+
+        utilities.translateObject(newCustomer, "Customer", "Dominos");
+
+        done();
+      });
+      it.skip('should translate from PizzaPI to Pizza Hut', function(done) {
 
       });
-      it.skip('should translate object from PizzaPI to Pizza Hut', function(done) {
+      it.skip('should translate from Pizza Hut to PizzaPI', function(done) {
 
       });
-      it.skip('should translate object from Pizza Hut to PizzaPI', function(done) {
-
-      });
-      it.skip('should translate object from Dominos to PizzaPI', function(done) {
+      it.skip('should translate from Dominos to PizzaPI', function(done) {
 
       });
     });
 
     describe('Address', function() {
-      it.skip('should translate object from PizzaPI to Dominos', function(done) {
+      it.skip('should translate from PizzaPI to Dominos', function(done) {
 
       });
-      it.skip('should translate object from PizzaPI to Pizza Hut', function(done) {
+      it.skip('should translate from PizzaPI to Pizza Hut', function(done) {
 
       });
-      it.skip('should translate object from Pizza Hut to PizzaPI', function(done) {
+      it.skip('should translate from Pizza Hut to PizzaPI', function(done) {
 
       });
-      it.skip('should translate object from Dominos to PizzaPI', function(done) {
+      it.skip('should translate from Dominos to PizzaPI', function(done) {
 
       });
     });
 
     describe('Order', function() {
-      it.skip('should translate object from PizzaPI to Dominos', function(done) {
+      it.skip('should translate from PizzaPI to Dominos', function(done) {
 
       });
-      it.skip('should translate object from PizzaPI to Pizza Hut', function(done) {
+      it.skip('should translate from PizzaPI to Pizza Hut', function(done) {
 
       });
-      it.skip('should translate object from Pizza Hut to PizzaPI', function(done) {
+      it.skip('should translate from Pizza Hut to PizzaPI', function(done) {
 
       });
-      it.skip('should translate object from Dominos to PizzaPI', function(done) {
+      it.skip('should translate from Dominos to PizzaPI', function(done) {
 
       });
     });
 
     describe('Item', function() {
-      it.skip('should translate object from PizzaPI to Dominos', function(done) {
+      it.skip('should translate from PizzaPI to Dominos', function(done) {
 
       });
-      it.skip('should translate object from PizzaPI to Pizza Hut', function(done) {
+      it.skip('should translate from PizzaPI to Pizza Hut', function(done) {
 
       });
-      it.skip('should translate object from Pizza Hut to PizzaPI', function(done) {
+      it.skip('should translate from Pizza Hut to PizzaPI', function(done) {
 
       });
-      it.skip('should translate object from Dominos to PizzaPI', function(done) {
+      it.skip('should translate from Dominos to PizzaPI', function(done) {
 
       });
     });

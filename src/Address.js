@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var utilities = require('./Utilities');
+var cleanInput = utilities.cleanInput
 
 var Address = function(parameters) {
   try {
@@ -50,6 +51,12 @@ var Address = function(parameters) {
   }
   catch(e) {
     throw e;
+  }
+
+  for(var t in this) {  //Clean up input, removing any 'bad' characters
+    if(!_.isFunction(this[t])) {
+      this[t] = cleanInput(this[t]);
+    }
   }
 }
 
