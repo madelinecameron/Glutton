@@ -1,7 +1,7 @@
 {
-  "name": "PizzaPI",
+  "name": "Glutton",
   "version": "0.0.1",
-  "description": "API for ordering pizza from Dominos or Pizza Hut",
+  "description": "API for ordering delivery",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
@@ -10,7 +10,8 @@
     "pizza",
     "pizzapi",
     "dominos api",
-    "pizza hut api"
+    "pizza hut api",
+    "jimmy johns api"
   ],
   "author": "Madeline Cameron <madeline@madelinecameron.net> (http://madelinecameron.net)",
   "license": "MIT",

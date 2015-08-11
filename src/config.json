@@ -50,5 +50,24 @@
         "Zip": "zip"
       }
     }
+  },
+  "JimmyJohns" : {
+    "Actions" : {
+      "Menu": "",
+      "Hours": "",
+      "Price": "https://order.pizzahut.com/api.php/site/api_ajax/pizzabuilder/getPizzaPrice",
+      "Validate": "https://order.pizzahut.com/site/ajax/tile/submitTile",
+      "Place": "",
+      "Stores": "https://order.pizzahut.com/site/ajax/find_nearby",
+      "BuildPizza": "https://order.pizzahut.com/site/ajax/pizzabuilder/submitPizza"
+    },
+    "Objects" : {
+      "Generalized Name" : "Pizza Hut Name",
+      "FindStore" : {
+        "Address_Line_1": "address",
+        "Address_Line_2": "address_two",
+        "Zip": "zip"
+      }
+    }
   }
 }
