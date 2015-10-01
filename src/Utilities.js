@@ -1,6 +1,6 @@
 'use strict'
 
-var request = require('request');
+var request = require('request-promise');
 var promise = require('promise');
 var config = require('./config.json');
 var translators = require('./translators');
@@ -84,28 +84,33 @@ module.exports.post = function(data, action) {
     }
 
     if(data['Type'] && data['Provider']) {
+        require('request-promise').debug = true;
         var translatedObject = _this.translateObject(data, data.Type, data.Provider);
-        console.log(config[data.Provider]['Actions'][action]);
-        console.dir({ "Order": translatedObject });
-        console.dir(translatedObject['Items']);
-        var stringify = JSON.stringify({ "Order": translatedObject });
+        console.log(translatedObject);
         var body = {
                     uri: config[data.Provider]['Actions'][action],
+                    json: true,
                     headers: {
-                        Referer:'https://order.dominos.com/en/pages/order/',
-                        'Content-Type': 'application/json'
+                        Referer:'https://order.dominos.com/en/pages/order/'
                     },
-                    body: stringify
-                };
-        request.post(body, function(err, res, body) {
-                console.log(res.statusCode);
-                console.log("Done!");
-                    //console.log(err.message);
-                    //console.log(res);
-                    //console.log(body);
+                    body: JSON.stringify({ "Order": translatedObject })
+                  };
+        console.log("Requesting...");
+        request.post(body)
+        .then(function(body) {
+            console.log("Bleh");
+            console.log(body);
+        })
+        .catch(function(error) {
+            console.log("ERRROR!!!");
+            console.dir(error.response.body);
+        })
+        .finally(function() {
+            console.log("Done!");
         });
     }
     else {
+        console.log("sdjkhf");
         return _this.errorMessage('No type was declared!');
     }
 }

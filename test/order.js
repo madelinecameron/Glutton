@@ -5,6 +5,7 @@ var Order = require('../src/Order');
 var Address = require('../src/Address');
 var Customer = require('../src/Customer');
 var Item = require('../src/Item');
+var request = require('request-promise');
 var promise = require('promise');
 
 describe('Order', function() {
@@ -209,17 +210,17 @@ describe('Order', function() {
 
     it('should validate order', function(done) {
         var address = new Address({
-          Street: '800 Bishop Ave',
+          Street: '2303 Coplin Ct Apt B',
           City: 'Rolla',
           State: 'MO',
-          Zip: '65401'
+          Zip: '65401-8375'
         });
 
         var customer = new Customer({
           FirstName: 'Madeline',
           LastName: 'Cameron',
           Email: 'madeline@madelinecameron.net',
-          Phone: '911-911-9111',
+          Phone: '6366998620',
           Address: address
         });
 
@@ -240,11 +241,11 @@ describe('Order', function() {
 
         order.addItem(item);
 
+        console.log(order);
         var newOrder = order.validate();
-
         //console.log(newOrder);
 
-        done();
+        //done();
     });
 
     it.skip('should price order', function(done) {

@@ -22,6 +22,7 @@
   "dependencies": {
     "lodash": "^3.10.0",
     "promise": "^7.0.3",
-    "request": "^2.58.0"
+    "request": "^2.64.0",
+    "request-promise": "^0.4.3"
   }
 }

@@ -14,8 +14,6 @@ var Order = function(parameters) {
         for(var item in this.Items) {
             this.Items[index++].ID = index;
         }
-
-        console.log(this.Items);
     }
 
     this.StoreID = parameters.StoreID;
@@ -69,7 +67,8 @@ Order.prototype.place = function() {
 Order.prototype.validate = function() {  //Dominos only
   if(this.Provider !== 'Dominos') return utility.errorMessage(false, 'This method is only avaliable for Dominos orders!');
   else {
-      utility.post(this, 'Validate');
+      console.log("Validating..."); 
+      return utility.post(this, 'Validate');
   }
 }
 

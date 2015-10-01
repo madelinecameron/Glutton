@@ -42,8 +42,11 @@
         "StoreID": "StoreID",
         "Address": "Address",
         "Additional": {
-          "PhonePrefix": "",
           "Coupons": [],
+          "Market": "",
+          "Currency": "",
+          "NewUser": true,
+          "metaData": {},
           "CustomerID": "",
           "Extension": "",
           "LanguageCode": "en",
