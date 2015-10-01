@@ -5,6 +5,7 @@ var utility = require('./Utilities');
 var promise = require('promise');
 
 var Order = function(parameters) {
+    this.ID = "";
     this.Type = "Order";
     this.Customer = parameters.Customer;
     this.Items = parameters.Items;
@@ -65,11 +66,31 @@ Order.prototype.place = function() {
 }
 
 Order.prototype.validate = function() {  //Dominos only
-  if(this.Provider !== 'Dominos') return utility.errorMessage(false, 'This method is only avaliable for Dominos orders!');
+  var _this = this;  //Because JS is dumb.
+  if(_this.Provider !== 'Dominos') return utility.errorMessage(false, 'This method is only avaliable for Dominos orders!');
   else {
-      console.log("Validating..."); 
-      return utility.post(this, 'Validate');
+      return utility.post(_this, 'Validate').then(function(body) {
+          var translatedObj = utility.reverseTranslateObject(JSON.parse(body).Order, _this.Type, _this.Provider);
+          return _this.mergeInResult(translatedObj);
+      })
+      .catch(function(err) {
+          console.log(err);
+          return utility.errorMessasge(err);
+      });
   }
+}
+
+Order.prototype.mergeInResult = function(result) {
+    console.log(result);
+    for(var key in result) {
+        this[key] = result[key];
+    }
+console.log("___");
+    console.log(this);
+    console.log("___");
+    return new Promise(function(resolve) {
+        resolve({ success: true });
+    });
 }
 
 module.exports = Order;

@@ -31,6 +31,7 @@
         "Quantity": "Qty",
         "Options": "Options",
         "ID": "ID",
+        "Name": "Name",
         "Additional": {
           "isNew": true
         }
@@ -41,6 +42,7 @@
         "DeliveryMethod": "ServiceMethod",
         "StoreID": "StoreID",
         "Address": "Address",
+        "ID": "OrderID",
         "Additional": {
           "Coupons": [],
           "Market": "",

@@ -210,10 +210,10 @@ describe('Order', function() {
 
     it('should validate order', function(done) {
         var address = new Address({
-          Street: '2303 Coplin Ct Apt B',
+          Street: '1346 N Bishop Ave',
           City: 'Rolla',
           State: 'MO',
-          Zip: '65401-8375'
+          Zip: '65401'
         });
 
         var customer = new Customer({
@@ -241,11 +241,22 @@ describe('Order', function() {
 
         order.addItem(item);
 
-        console.log(order);
         var newOrder = order.validate();
-        //console.log(newOrder);
+        newOrder.then(function(result) {
+            expect(result.success).to.be.true;
+            console.log(order);
+            console.log(order.ID);
+            expect(order.ID).to.not.equal("");
+            expect(order.Name).to.not.equal("Not supposed to be initialized");
+        })
+        .catch(function(err) {
+            console.log("ERROR!");
+            console.log(err);
+        });
 
-        //done();
+        console.log(order);
+
+        done();
     });
 
     it.skip('should price order', function(done) {

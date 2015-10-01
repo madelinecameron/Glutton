@@ -147,8 +147,19 @@ module.exports.reverseTranslateOrder = function (data, provider) {
 
                     translatedObject['Customer'] = {};
                     translatedObject['Customer'] = translateResult;
-                    break;
 
+                    break;
+                case "ITEMS":
+                    if(data[orderObj['Items']] !== []) {
+                        var translatedItems = []
+                        for(i = 0; i < data[orderObj['Items']].length; i++) {
+                            translatedItems.push(_this.reverseTranslateItem(data[orderObj['Items']][i], provider));
+                        }
+
+                        translatedObject[reverseOrderObj[key]] = translatedItems;
+                        break;
+                    }
+                    //If it is [], fall through.
                 default:
                     translatedObject[reverseOrderObj[key]] = data[key];
                     break;
@@ -173,5 +184,19 @@ module.exports.translateItem = function (data, provider) {
     });
 
     if (itemObject["Additional"]) { _.assign(translatedObject, itemObject["Additional"]) }
+    return translatedObject;
+}
+
+module.exports.reverseTranslateItem = function (data, provider) {
+    var reverseItemObj = _.invert(config[provider].Objects.Item),
+        translatedObject = { },
+        keys = Object.keys(reverseItemObj);
+
+    keys.forEach(function(key) {
+        if(data.hasOwnProperty(key)) {
+            translatedObject[reverseItemObj[key]] = data[key];
+        }
+    });
+
     return translatedObject;
 }

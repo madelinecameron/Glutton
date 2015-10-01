@@ -86,37 +86,23 @@ module.exports.post = function(data, action) {
     if(data['Type'] && data['Provider']) {
         require('request-promise').debug = true;
         var translatedObject = _this.translateObject(data, data.Type, data.Provider);
-        console.log(translatedObject);
         var body = {
                     uri: config[data.Provider]['Actions'][action],
-                    json: true,
                     headers: {
-                        Referer:'https://order.dominos.com/en/pages/order/'
+                        Referer:'https://order.dominos.com/en/pages/order/',
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ "Order": translatedObject })
                   };
-        console.log("Requesting...");
-        request.post(body)
-        .then(function(body) {
-            console.log("Bleh");
-            console.log(body);
-        })
-        .catch(function(error) {
-            console.log("ERRROR!!!");
-            console.dir(error.response.body);
-        })
-        .finally(function() {
-            console.log("Done!");
-        });
+        return request.post(body);
     }
     else {
-        console.log("sdjkhf");
         return _this.errorMessage('No type was declared!');
     }
 }
 
 module.exports.errorMessage = function(message) {  //This is used to keep all messages formatted the same
-  return new Promise(function(resolve) {
-    resolve({ success: false, message: message });
+  return new Promise(function(_, reject) {
+    reject({ success: false, message: message });
   })
 }
