@@ -5,24 +5,55 @@ var promise = require('promise');
 var config = require('./config.json');
 var translators = require('./translators');
 
+var _this = this;
+
 module.exports.translateObject = function(data, type, provider) {
-  if(provider !== 'Dominos' && provider !== 'PizzaHut' && provider !== 'PizzaPI') {
-    return errorMessage(false, 'Invalid provider parameter!');
-  }
+    if(provider !== 'Dominos' && provider !== 'PizzaHut' && provider !== 'PizzaPI') {
+        return _this.errorMessage('Invalid provider parameter!');
+    }
 
-  switch(type.toUpperCase()) {
-    case "CUSTOMER":
-      return translators.translateCustomer(data)
-    case "ADDRESS":
-      return translators.translateAddress(data);
+    switch(type.toUpperCase()) {
+        case "CUSTOMER":
+            return translators.translateCustomer(data, provider);
+            break;
+        case "ADDRESS-SPLIT":
+            return translators.translateAddress(data, "SplitLines", provider);
+            break;
+        case 'ADDRESS-NOSPLIT':
+            return translators.translateAddress(data, "NoSplitLines", provider);
+            break;
+        case 'ORDER':
+            return translators.translateOrder(data, provider);
+            break;
+    }
+}
 
-  }
+module.exports.reverseTranslateObject = function(data, type, provider) {
+    if(provider !== 'Dominos' && provider !== 'PizzaHut' && provider !== 'PizzaPI') {
+        return _this.errorMessage('Invalid provider parameter!');
+    }
+
+    switch(type.toUpperCase()) {
+        case "CUSTOMER":
+            return translators.reverseTranslateCustomer(data, provider);
+            break;
+        case "ADDRESS-SPLIT":
+            return translators.reverseTranslateAddress(data, "SplitLines", provider);
+            break;
+        case 'ADDRESS-NOSPLIT':
+            return translators.reverseTranslateAddress(data, "NoSplitLines", provider);
+            break;
+        case 'ORDER':
+            return translators.reverseTranslateOrder(data, provider);
+            break;
+    }
 }
 
 //Dominos:
  //Pizza Hut: Zip (Town + State or ZIP), address: line 1, address_two: line 2
 var findStores = function(Address, provider, callback) {  //Finds stores
-  return post(Address, provider, 'Stores').nodeify(callback);
+    var translatedAddress = this.translateObject(Address, 'Address', provider)
+    return post(Address, provider, 'Stores').nodeify(callback);
 }
 
 module.exports.cleanInput = function(data) {
@@ -39,7 +70,7 @@ module.exports.get = function(provider, action) {
     method: 'GET',
     uri: config[provider]['Actions'][action]
     }, function(err, res, body) {
-      if(err) reject(errorMessage(false, err));
+      if(err) reject(errorMessage(err));
       else resolve(body);
     });
   });
@@ -47,38 +78,40 @@ module.exports.get = function(provider, action) {
   return promise;
 }
 
-module.exports.post = function(data, provider, action) {
-  if(!provider) {
-    return errorMessage(false, 'A provider must be supplied in the object or the method call!');
-  }
-  if(!data['type'] && provider) {
-    var translatedObject = translateObject(data, provider);
-  }
-  else {
-    var translatedObject = translateObject(data, data.type)
-  }
+module.exports.post = function(data, action) {
+    if(!data['Provider']) {
+        return _this.errorMessage('A provider must be supplied in the object or the method call!');
+    }
 
-  try {
-    var parsedBody = JSON.parse(translatedObject);
-  }
-  catch(e) {
-    return errorMessage(false, 'Body parsing failed!');
-  }
-
-  var promise = new Promise(function(resolve, reject) {
-    request({
-    method: 'POST',
-    body: parsedBody,
-    uri: config[provider]['Actions'][action]
-    }, function(err, res, body) {
-      if(err) reject(errorMessage(false, err));
-      else resolve(body);
-    });
-  });
-
-  return promise;
+    if(data['Type'] && data['Provider']) {
+        var translatedObject = _this.translateObject(data, data.Type, data.Provider);
+        console.log(config[data.Provider]['Actions'][action]);
+        console.dir({ "Order": translatedObject });
+        console.dir(translatedObject['Items']);
+        var stringify = JSON.stringify({ "Order": translatedObject });
+        var body = {
+                    uri: config[data.Provider]['Actions'][action],
+                    headers: {
+                        Referer:'https://order.dominos.com/en/pages/order/',
+                        'Content-Type': 'application/json'
+                    },
+                    body: stringify
+                };
+        request.post(body, function(err, res, body) {
+                console.log(res.statusCode);
+                console.log("Done!");
+                    //console.log(err.message);
+                    //console.log(res);
+                    //console.log(body);
+        });
+    }
+    else {
+        return _this.errorMessage('No type was declared!');
+    }
 }
 
-module.exports.errorMessage = function(success, message) {  //This is used to keep all messages formatted the same
-  return { success: success, message: message };
+module.exports.errorMessage = function(message) {  //This is used to keep all messages formatted the same
+  return new Promise(function(resolve) {
+    resolve({ success: false, message: message });
+  })
 }

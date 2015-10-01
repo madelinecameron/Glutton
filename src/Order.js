@@ -2,17 +2,39 @@
 
 var _ = require('lodash');
 var utility = require('./Utilities');
+var promise = require('promise');
 
 var Order = function(parameters) {
-  this.Customer = parameters.Customer;
-  this.Items = parameters.Items;
-  this.StoreID = parameters.StoreID;
-  this.Provider = parameters.Provider;
-  this.DeliveryMethod = parameters.DeliveryMethod ? parameters.DeliveryMethod : 'Delivery'
+    this.Type = "Order";
+    this.Customer = parameters.Customer;
+    this.Items = parameters.Items;
+
+    if(this.Items !== []) {
+        var index = 0;
+        for(var item in this.Items) {
+            this.Items[index++].ID = index;
+        }
+
+        console.log(this.Items);
+    }
+
+    this.StoreID = parameters.StoreID;
+    this.Provider = parameters.Provider.trim();
+    this.DeliveryMethod = parameters.DeliveryMethod ? parameters.DeliveryMethod : 'Delivery'
 }
 
 Order.prototype.addItem = function(Item) {
-  this.Items.push(Item);
+    //If an identical item already exists
+    var itemIndex = this.Items.indexOf(Item);
+    Item.ID = this.Items.length + 1;
+    if (itemIndex !== -1) {
+        var modifiedItem = this.Items[itemIndex];
+        modifiedItem.Quantity += 1;
+        this.Items = this.Items.splice(itemIndex, 1, modifiedItem);
+    }
+    else {
+      this.Items.push(Item);
+    }
 }
 
 Order.prototype.removeItemByName = function(name) {
@@ -31,7 +53,6 @@ Order.prototype.modifyItemByName = function(name, modifyParams) {
   //   return Item.Name == name;
   // });
 
-
 }
 
 Order.prototype.modifyItemByIndex = function(index, modifyParams) {
@@ -42,13 +63,13 @@ Order.prototype.price = function() {
 }
 
 Order.prototype.place = function() {
-
+    return utility.post(this, 'Dominos', 'Price');
 }
 
-Order.prototype.check = function() {  //Dominos only
-  if(this.Type !== 'Dominos') return utility.errorMessage(false, 'This method is only avaliable for Dominos orders!');
+Order.prototype.validate = function() {  //Dominos only
+  if(this.Provider !== 'Dominos') return utility.errorMessage(false, 'This method is only avaliable for Dominos orders!');
   else {
-
+      utility.post(this, 'Validate');
   }
 }
 
